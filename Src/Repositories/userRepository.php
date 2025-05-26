@@ -1,14 +1,13 @@
 <?php
 
-function createUser(string $userName, string $email, string $password, string $subscriptionDate): bool {
+function createUser(string $Name, string $email, string $password, string $subscriptionDate): bool {
     global $pdo;
-    $query = "INSERT INTO users (email, userName, password, subscriptionDate)
-              VALUES (:email, :userName, :password, :subscriptionDate)";
+    $query = "INSERT INTO users (email, Name, password)
+              VALUES (:email, :Name, :password)";
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':userName', $userName);
+    $stmt->bindParam(':Name', $userName);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':password', $password);
-    $stmt->bindParam(':subscriptionDate', $subscriptionDate);
     return $stmt->execute();
 }
 

@@ -10,10 +10,8 @@ function registerUser($request) {
     }
 
     $password = password_hash($request->password, PASSWORD_DEFAULT);
-    $avatar = '';
-    $subscriptionDate = date('Y-m-d H:i:s');
 
-    $result = createUser($request->userName, $request->email, $avatar, $password, $subscriptionDate);
+    $result = createUser($request->Name, $request->email, $password);
 
     if ($result) {
         return json_encode(['success' => true, 'message' => 'Utilisateur créé avec succès !']);

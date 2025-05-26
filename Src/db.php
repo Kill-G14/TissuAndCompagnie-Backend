@@ -3,7 +3,7 @@
 $host = "localhost"; 
 $user = "root"; 
 $pass = ""; 
-$db = ""; // nom de la base de données
+$db = "tissuetcompagnie";
 
 try { 
     $connectionString = "mysql:host=$host;dbname=$db;charset=utf8";

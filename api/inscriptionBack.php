@@ -39,9 +39,6 @@ switch ($request->action) {
         // Hachage du mot de passe
         $password = password_hash($request->password, PASSWORD_DEFAULT);
 
-        // Défini un avatar 
-        $avatar = '';  // 
-
         // Crée l'utilisateur
         $result = createUser($request->userName, $request->email, $avatar, $password, $subscriptionDate);
 
