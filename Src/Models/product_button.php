@@ -1,6 +1,6 @@
 <?php
 
-class Product_button {
+class Product_button implements JsonSerializable{
     public $id;
     public $ref;
     public $description;
@@ -25,6 +25,10 @@ class Product_button {
         $this->color = $color;
         $this->isDeleted = $isDeleted;
         $this->hole = $hole;
+    }
+    
+    public function jsonSerialize(): mixed {
+        return get_object_vars($this);
     }
 }
 

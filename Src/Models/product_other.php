@@ -1,6 +1,6 @@
 <?php
 
-class Product_other {
+class Product_other implements JsonSerializable{
     public $id;
     public $ref;
     public $description;
@@ -21,6 +21,9 @@ class Product_other {
         $this->isDeleted = $isDeleted;
         $this->name = $name;
         $this->type = $type;
+    }
+    public function jsonSerialize(): mixed {
+        return get_object_vars($this);
     }
 }
 
