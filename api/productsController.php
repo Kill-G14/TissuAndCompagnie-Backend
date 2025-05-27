@@ -7,11 +7,13 @@ require '../Src/Repositories/ProductsRepository.php';
 require '../Src/Services/productService.php';
 require '../Src/db.php';
 
-$pdo = new PDO("mysql:host=localhost;dbname=tissuetcompagnie;charset=utf8", "root", "");
 
-$type = $_GET['type'] ?? 'button';
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$type = $_POST['type'] ?? 'button';
+$page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
 $perPage = 28;
+
+$request = json_decode(json: file_get_contents(filename: 'php://input'));
+$request->action;
 
 $repo = new ProductsRepository($pdo);
 $service = new ProductsService($repo);
@@ -19,3 +21,4 @@ $data = $service->getPaginatedProducts($type, $page, $perPage);
 
 header('Content-Type: application/json');
 echo json_encode($data);
+

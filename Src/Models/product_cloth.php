@@ -1,6 +1,6 @@
 <?php
 
-class Product_cloth implements JsonSerializable {
+class Product_cloth{
     public $id;
     public $ref;
     public $type;
@@ -25,9 +25,6 @@ class Product_cloth implements JsonSerializable {
         $this->width = $width;
         $this->color = $color;
         $this->isDeleted = $isDeleted;
-    }
-    public function jsonSerialize(): mixed {
-        return get_object_vars($this);
     }
 }
 

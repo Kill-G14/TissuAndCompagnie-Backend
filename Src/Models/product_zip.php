@@ -1,6 +1,6 @@
 <?php
 
-class Product_zip  implements JsonSerializable{
+class Product_zip{
     public $id;
     public $ref;
     public $type;
@@ -23,9 +23,6 @@ class Product_zip  implements JsonSerializable{
         $this->length = $length;
         $this->color = $color;
         $this->isDeleted = $isDeleted;
-    }
-    public function jsonSerialize(): mixed {
-        return get_object_vars($this);
     }
 }
 
