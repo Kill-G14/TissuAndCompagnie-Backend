@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Product_zip {
     public $id;
     public $ref;
     public $type;

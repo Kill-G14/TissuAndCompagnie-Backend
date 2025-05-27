@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Ordres {
     public $id;
     public $idCustomer;
     public $state;

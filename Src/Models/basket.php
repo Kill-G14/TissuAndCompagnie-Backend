@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Basket {
     public $id;
     public $idOrders_content;
 

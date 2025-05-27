@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Adress {
     public $id;
     public $idCustomer;
     public $Type;

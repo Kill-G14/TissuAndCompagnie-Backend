@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Picture {
     public $id;
     public $productId;
     public $fileName;

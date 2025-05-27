@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Ordres_content {
     public $id;
     public $orderId;
     public $productId;

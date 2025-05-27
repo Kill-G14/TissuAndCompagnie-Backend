@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Customer {
     public $id;
     public$idUser;
     public $email;

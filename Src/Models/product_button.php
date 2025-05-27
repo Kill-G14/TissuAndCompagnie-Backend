@@ -1,6 +1,6 @@
 <?php
 
-class User {
+class Product_button {
     public $id;
     public $ref;
     public $description;
