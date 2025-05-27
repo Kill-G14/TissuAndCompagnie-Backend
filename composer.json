@@ -1,0 +1,14 @@
+{
+    "name": "user/tissu-and-compagnie-backend",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Killian"
+        }
+    ],
+    "require": {}
+}
