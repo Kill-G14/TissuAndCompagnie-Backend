@@ -40,7 +40,7 @@ switch ($request->action) {
         $password = password_hash($request->password, PASSWORD_DEFAULT);
 
         // Crée l'utilisateur
-        $result = createUser($request->userName, $request->email, $avatar, $password, $subscriptionDate);
+        $result = createUser($request->userName, $request->email, $password,);
 
         if ($result) {
             echo json_encode(['success' => true, 'message' => 'Utilisateur créé avec succès !']);
