@@ -4,9 +4,11 @@ header(header: "Access-Control-Allow-Origin: *");
 header(header: "Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header(header: "Access-Control-Allow-Headers: Content-Type");
 
+require __DIR__.'/../Src/db.php';
 require __DIR__.'/../vendor/autoload.php';
-use App\Repositories\ProductsRepository;
 use App\Services\ProductsService;
+use App\Repositories\ProductsRepository;
+
 
 $repo = new ProductsRepository($pdo);
 $service = new ProductsService($repo);
