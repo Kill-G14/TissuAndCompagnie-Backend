@@ -8,7 +8,7 @@ class ChangeMdpService {
     public function changePassword($email, $newPassword): array {
         $user = new User();
 
-        if (!$user->exists($email)) {
+        if (!$user->getUserByEmail($email)) {
             return ["status" => "error", "message" => "Utilisateur non trouvé"];
         }
 
