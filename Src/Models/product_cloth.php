@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Product_cloth{
     public $id;
     public $ref;
@@ -27,5 +27,3 @@ class Product_cloth{
         $this->isDeleted = $isDeleted;
     }
 }
-
-?>

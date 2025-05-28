@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Ordres {
     public $id;
     public $idCustomer;
@@ -23,5 +23,3 @@ class Ordres {
         $this->isDeleted = $isDeleted;
     }
 }
-
-?>

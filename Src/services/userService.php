@@ -19,4 +19,3 @@ function registerUser($request) {
         return json_encode(['success' => false, 'message' => 'Erreur lors de la création de l\'utilisateur !']);
     }
 }
-?>

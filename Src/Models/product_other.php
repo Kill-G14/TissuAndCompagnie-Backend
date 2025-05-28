@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Product_other{
     public $id;
     public $ref;
@@ -23,5 +23,3 @@ class Product_other{
         $this->type = $type;
     }
 }
-
-?>

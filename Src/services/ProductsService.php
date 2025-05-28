@@ -1,7 +1,10 @@
 <?php
-
+namespace App\Services;
+use App\Repositories\ProductsRepository;
+use App\Models\ModelsDTO\DTOProducts;
 class ProductsService {
     private $repo;
+
 
     public function __construct(ProductsRepository $repo) {
         $this->repo = $repo;
@@ -12,14 +15,11 @@ class ProductsService {
         $products = $this->repo->findProductsByType($type, $perPage, $offset);
         $DTOproducts = [];
         foreach ($products as $product) {
-            $productId = $product->id ?? null;
-
+            $productId = $product->id;
+            $pictures = [];
             if ($productId !== null) {
                 $pictures = $this->repo->findImagesByProductId($productId);
-            } else {
-                $pictures = [];
             }
-
             $DTOproducts[] = new DTOProducts($product, $pictures);
         }
 
@@ -27,7 +27,7 @@ class ProductsService {
         $totalPages = ceil($numberOFProducts / $perPage);
 
         return [
-            'products' => $products,
+            'products' => $DTOproducts,
             'pagination' => ['currentPage' => $page,'totalPages' => $totalPages,'totalItems' => $numberOFProducts,'perPage' => $perPage]
         ];
     }

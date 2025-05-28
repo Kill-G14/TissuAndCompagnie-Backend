@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Picture {
     public $id;
     public $productId;
@@ -14,5 +14,3 @@ class Picture {
         $this->isDeleted = $isDeleted;
     }
 }
-
-?>

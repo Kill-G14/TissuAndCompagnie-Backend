@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Session {
     public $id;
     public $idUser;
@@ -13,5 +13,3 @@ class Session {
         $this->Token = $Token;
     }
 }
-
-?>

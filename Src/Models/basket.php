@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Basket {
     public $id;
     public $idOrders_content;
@@ -11,4 +11,3 @@ class Basket {
 
 }
 
-?>

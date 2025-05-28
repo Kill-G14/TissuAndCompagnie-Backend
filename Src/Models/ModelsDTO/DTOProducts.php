@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models\ModelsDTO;
 class DTOProducts {
     public mixed $product;
     public array $pictures;
@@ -9,4 +9,3 @@ class DTOProducts {
         $this->pictures = $pictures;
     }
 }
-?>

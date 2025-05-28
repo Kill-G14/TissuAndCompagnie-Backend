@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Adress {
     public $id;
     public $idCustomer;
@@ -15,4 +15,3 @@ class Adress {
 
 }
 
-?>

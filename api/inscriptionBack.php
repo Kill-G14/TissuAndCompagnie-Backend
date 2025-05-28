@@ -57,4 +57,3 @@ switch ($request->action) {
         break;
 }
 
-?>

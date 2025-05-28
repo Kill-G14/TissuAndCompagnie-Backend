@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Customer {
     public $id;
     public$idUser;
@@ -22,4 +22,3 @@ class Customer {
     }
 }
 
-?>

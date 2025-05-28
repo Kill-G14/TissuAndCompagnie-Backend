@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Ordres_content {
     public $id;
     public $orderId;
@@ -21,5 +21,3 @@ class Ordres_content {
         $this->isDeleted = $isDeleted;
     }
 }
-
-?>

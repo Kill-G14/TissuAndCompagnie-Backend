@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Product_button{
     public $id;
     public $ref;
@@ -28,5 +28,3 @@ class Product_button{
     }
 
 }
-
-?>

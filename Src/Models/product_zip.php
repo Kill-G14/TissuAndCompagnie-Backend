@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Models;
 class Product_zip{
     public $id;
     public $ref;
@@ -25,5 +25,3 @@ class Product_zip{
         $this->isDeleted = $isDeleted;
     }
 }
-
-?>
