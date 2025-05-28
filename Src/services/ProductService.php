@@ -12,10 +12,15 @@ class ProductsService {
         $products = $this->repo->findProductsByType($type, $perPage, $offset);
         $DTOproducts = [];
         foreach ($products as $product) {
-            // Récupérer les images associées au produit 
-            // on crée un DTO qui contient le produit et ses images
-            // puis on ajoute le DTO au tableau $DTOproducts
-            // je dois faire Un Crud dans le Repository
+            $productId = $product->id ?? null;
+
+            if ($productId !== null) {
+                $pictures = $this->repo->findImagesByProductId($productId);
+            } else {
+                $pictures = [];
+            }
+
+            $DTOproducts[] = new DTOProducts($product, $pictures);
         }
 
         $numberOFProducts = $this->repo->countProductsByType($type);

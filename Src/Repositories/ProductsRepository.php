@@ -39,7 +39,15 @@ class ProductsRepository {
         $stmt->execute();
         return (int) $stmt->fetchColumn();
     }
+    public function findImagesByProductId(int $productId): array {
+        $stmt = $this->pdo->prepare("SELECT * FROM picture WHERE productId = :productId AND isDeleted = 0");
+        $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
 }
+
 
 
 // switch ($Categories) {
