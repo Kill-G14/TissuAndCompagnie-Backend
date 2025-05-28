@@ -1,6 +1,6 @@
 <?php
 namespace App\Models\ModelsDTO;
-class DTOProducts {
+class DTOProduct {
     public mixed $product;
     public array $pictures;
 

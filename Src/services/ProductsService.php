@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 use App\Repositories\ProductsRepository;
-use App\Models\ModelsDTO\DTOProducts;
+use App\Models\ModelsDTO\DTOProduct;
 class ProductsService {
     private $repo;
 
@@ -20,7 +20,7 @@ class ProductsService {
             if ($productId !== null) {
                 $pictures = $this->repo->findImagesByProductId($productId);
             }
-            $DTOproducts[] = new DTOProducts($product, $pictures);
+            $DTOproducts[] = new DTOProduct($product, $pictures);
         }
 
         $numberOFProducts = $this->repo->countProductsByType($type);
