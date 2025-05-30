@@ -9,15 +9,16 @@ class UserRepository {
         $this->pdo = $pdo;
     }
 
-    public function getUserByEmail(string $email) {
+    public function getUserByEmail(string $email): array {
         $query = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?: null;
     }
 
-    public function createUser(string $name, string $email, string $password) {
+    public function createUser(string $name, string $email, string $password): bool {
         $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':name', $name);
@@ -33,5 +34,5 @@ class UserRepository {
         $stmt->bindParam(':email', $email);
         return $stmt->execute();
     }
-    
+
 }

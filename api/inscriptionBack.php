@@ -11,15 +11,13 @@ use App\Repositories\UserRepository;
 
 
 $request = json_decode(file_get_contents('php://input'));
+$repo = new UserRepository($pdo);
+$service = new UserService($repo);
 
 if ($request === null) {
     echo json_encode(['success' => false, 'message' => 'Aucune donnée reçue ou format invalide']);
     exit;
 }
-
-
-$repo = new UserRepository($pdo);
-$service = new UserService($repo);
 
 switch ($request->action) {
     case 'registerNewUser':

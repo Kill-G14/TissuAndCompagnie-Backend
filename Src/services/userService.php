@@ -26,4 +26,27 @@ class UserService {
             ? ['success' => true, 'message' => 'Utilisateur créé avec succès !']
             : ['success' => false, 'message' => 'Erreur lors de la création de l\'utilisateur !'];
     }
+    public function loginUser(string $email, string $password): array {
+        $user = $this->repo->getUserByEmail($email);
+    
+        if (!$user) {
+            return ['success' => false, 'message' => 'Utilisateur non trouvé.'];
+        }
+    
+        if (!password_verify($password, $user['password'])) {
+            return ['success' => false, 'message' => 'Mot de passe incorrect.'];
+        }
+    
+        return [
+            'success' => true,
+            'message' => 'Connexion réussie.',
+            'user' => [
+                'id' => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'isAdmin' => $user['isAdmin'] ?? false,
+            ]
+        ];
+    }
+    
 }
