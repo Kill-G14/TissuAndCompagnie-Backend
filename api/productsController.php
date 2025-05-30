@@ -10,11 +10,10 @@ use App\Services\ProductsService;
 use App\Repositories\ProductsRepository;
 
 
+$request = json_decode(file_get_contents("php://input"));
 $repo = new ProductsRepository($pdo);
 $service = new ProductsService($repo);
 
-// $request = json_decode(json: file_get_contents(filename: 'php://input'));
-$request = json_decode("{ \"action\": \"getProducts\", \"type\": \"cloth\", \"page\": 1, \"perPage\": 2}");
 if (!isset($request->action)) {
     $data = [
         'status' => 'error',

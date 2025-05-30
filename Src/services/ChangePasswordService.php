@@ -1,25 +1,28 @@
 <?php
 
-require '../db.php';
-require '../Repositories/userRepository.php';
-require '../Models/User.php';
+namespace App\Services;
+use App\Repositories\UserRepository;
 
-class ChangeMdpService {
-    public function changePassword($email, $newPassword): array {
-        $user = new User();
+class ChangePasswordService {
+    private $repo;
 
-        if (!$user->getUserByEmail($email)) {
+    public function __construct(UserRepository $repo) {
+        $this->repo = $repo;
+    }
+
+    public function changePassword(string $email, string $newPassword): array {
+        $user = $this->repo->getUserByEmail($email);
+
+        if (!$user) {
             return ["status" => "error", "message" => "Utilisateur non trouvé"];
         }
 
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $success = $this->repo->updatePassword($email, $hashedPassword);
 
-        $success = $user->updatePassword($email, $hashedPassword);
-
-        if ($success) {
-            return ["status" => "success", "message" => "Mot de passe mis à jour"];
-        } else {
-            return ["status" => "error", "message" => "Échec de la mise à jour"];
-        }
+        return $success
+            ? ["status" => "success", "message" => "Mot de passe mis à jour"]
+            : ["status" => "error", "message" => "Échec de la mise à jour"];
     }
 }
+

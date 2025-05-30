@@ -1,12 +1,13 @@
 <?php
-header(header: "Access-Control-Allow-Origin: *");
-header(header: "Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header(header: "Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
-require_once '../Src/services/Tools.php';
-require_once '../Src/services/ChangeMdpService.php';
-require_once '../Src/db.php';
-require_once '../Src/models/User.php';
+require __DIR__.'/../Src/db.php';
+require __DIR__.'/../vendor/autoload.php';
+
+use App\Services\ChangePasswordService;
+use App\Repositories\UserRepository;
 
 $request = json_decode(file_get_contents("php://input"), true);
 
@@ -15,15 +16,17 @@ if (!isset($request["action"]) || $request["action"] !== "changePassword") {
     exit;
 }
 
-$email = $data["email"] ?? null;
-$newPassword = $data["newPassword"] ?? null;
+$email = $request["email"] ?? null;
+$newPassword = $request["newPassword"] ?? null;
 
 if (!$email || !$newPassword) {
     echo json_encode(["status" => "error", "message" => "Champs manquants"]);
     exit;
 }
 
-$service = new ChangeMdpService();
+$repo = new UserRepository($pdo);
+$service = new ChangePasswordService($repo);
+
 $response = $service->changePassword($email, $newPassword);
 
 echo json_encode($response);

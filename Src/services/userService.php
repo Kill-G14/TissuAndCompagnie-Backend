@@ -1,21 +1,29 @@
 <?php
 
-function registerUser($request) {
-    if (!checkUserEmail($request->email)) {
-        return json_encode(['success' => false, 'message' => 'Email invalide !']);
+namespace App\Services;
+use App\Repositories\UserRepository;
+
+class UserService {
+    private $repo;
+
+    public function __construct(UserRepository $repo) {
+        $this->repo = $repo;
     }
 
-    if (getUserByEmail($request->email)) {
-        return json_encode(['success' => false, 'message' => 'L\'email est déjà utilisé !']);
-    }
+    public function registerUser($request) {
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            return ['success' => false, 'message' => 'Email invalide !'];
+        }
 
-    $password = password_hash($request->password, PASSWORD_DEFAULT);
+        if ($this->repo->getUserByEmail($request->email)) {
+            return ['success' => false, 'message' => 'L\'email est déjà utilisé !'];
+        }
 
-    $result = createUser($request->Name, $request->email, $password);
+        $password = password_hash($request->password, PASSWORD_DEFAULT);
+        $result = $this->repo->createUser($request->userName, $request->email, $password);
 
-    if ($result) {
-        return json_encode(['success' => true, 'message' => 'Utilisateur créé avec succès !']);
-    } else {
-        return json_encode(['success' => false, 'message' => 'Erreur lors de la création de l\'utilisateur !']);
+        return $result
+            ? ['success' => true, 'message' => 'Utilisateur créé avec succès !']
+            : ['success' => false, 'message' => 'Erreur lors de la création de l\'utilisateur !'];
     }
 }
