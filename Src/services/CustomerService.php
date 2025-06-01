@@ -1,19 +1,19 @@
 <?
 
-namespace App\Services;
+// namespace App\Services;
 
-use App\Repositories\CustomerRepository;
+// use App\Repositories\CustomerRepository;
 
-class CustomerService {
-    private $repo;
+// class CustomerService {
+//     private $repo;
 
-    public function __construct(CustomerRepository $repo) {
-        $this->repo = $repo;
-    }
+//     public function __construct(CustomerRepository $repo) {
+//         $this->repo = $repo;
+//     }
 
-    public function getCustomerById($id) {
-        return $this->repo->getCustomerById($id);
-    }
+//     public function getCustomerById($id) {
+//         return $this->repo->getCustomerById($id);
+//     }
 
     
-}
+// }
