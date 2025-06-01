@@ -48,5 +48,27 @@ class UserService {
             ]
         ];
     }
+
+    public function updateUserInfos($request): array {
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            return ['success' => false, 'message' => 'Email invalide'];
+        }
+    
+        if (!preg_match('/^\+?\d[\d\s\-]{6,}$/', $request->telephone)) {
+            return ['success' => false, 'message' => 'Numéro de téléphone invalide'];
+        }
+    
+        $success = $this->repo->updateUserInfos(
+            $request->email,
+            $request->adresse,
+            $request->adresseLivraison,
+            $request->telephone
+        );
+    
+        return $success
+            ? ['success' => true, 'message' => 'Coordonnées mises à jour.']
+            : ['success' => false, 'message' => 'Échec de la mise à jour.'];
+    }
+    
     
 }

@@ -35,4 +35,15 @@ class UserRepository {
         return $stmt->execute();
     }
 
+    public function updateUserInfos(string $email, string $adresse, string $adresseLivraison, string $telephone): bool {
+        $query = "UPDATE users SET adresse = :adresse, adresse_livraison = :adresseLivraison, telephone = :telephone WHERE email = :email";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':adresse', $adresse);
+        $stmt->bindParam(':adresseLivraison', $adresseLivraison);
+        $stmt->bindParam(':telephone', $telephone);
+        $stmt->bindParam(':email', $email);
+        return $stmt->execute();
+    }
+    
+
 }
