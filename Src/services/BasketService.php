@@ -9,8 +9,7 @@ class BasketService {
     public function __construct(BasketRepository $repo) {
         $this->repo = $repo;
     }
-}
-
-public function getBasketByUserId($userId) {
-    return $this->repo->getBasketByUserId($userId);
+    public function getBasketByUserId($userId) {
+        return $this->repo->getBasketByUserId($userId);
+    }
 }
