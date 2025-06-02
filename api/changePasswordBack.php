@@ -8,10 +8,11 @@ require __DIR__.'/../vendor/autoload.php';
 
 use App\Services\ChangePasswordService;
 use App\Repositories\UserRepository;
+use App\Services\EmailValidatorService;
 
-
+$emailValidator = new EmailValidatorService();
 $repo = new UserRepository($pdo);
-$service = new ChangePasswordService($repo);
+$service = new ChangePasswordService($repo, $emailValidator);
 $email = $request["email"] ?? null;
 $newPassword = $request["newPassword"] ?? null;
 $response = $service->changePassword($email, $newPassword);

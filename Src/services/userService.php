@@ -5,9 +5,11 @@ use App\Repositories\UserRepository;
 
 class UserService {
     private $repo;
+    private $emailValidator;
 
-    public function __construct(UserRepository $repo) {
+    public function __construct(UserRepository $repo, EmailValidatorService $emailValidator) {
         $this->repo = $repo;
+        $this->emailValidator = $emailValidator;
     }
 
     public function registerUser($request) {
@@ -69,6 +71,4 @@ class UserService {
             ? ['success' => true, 'message' => 'Coordonnées mises à jour.']
             : ['success' => false, 'message' => 'Échec de la mise à jour.'];
     }
-    
-    
 }

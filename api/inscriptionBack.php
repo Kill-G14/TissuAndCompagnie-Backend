@@ -8,11 +8,13 @@ require __DIR__.'/../vendor/autoload.php';
 
 use App\Services\UserService;
 use App\Repositories\UserRepository;
+use App\Services\EmailValidatorService;
 
 
 $request = json_decode(file_get_contents('php://input'));
 $repo = new UserRepository($pdo);
-$service = new UserService($repo);
+$emailValidator = new EmailValidatorService();
+$service = new UserService($repo, $emailValidator);
 
 if ($request === null) {
     echo json_encode(['success' => false, 'message' => 'Aucune donnée reçue ou format invalide']);

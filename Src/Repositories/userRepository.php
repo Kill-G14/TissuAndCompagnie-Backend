@@ -9,6 +9,8 @@ class UserRepository {
         $this->pdo = $pdo;
     }
 
+/*************  ✨ Windsurf Command ⭐  *************/
+/*******  2c0fe598-062a-445d-a5a5-c8e01d46cdc2  *******/
     public function getUserByEmail(string $email): array {
         $query = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($query);
@@ -44,6 +46,4 @@ class UserRepository {
         $stmt->bindParam(':email', $email);
         return $stmt->execute();
     }
-    
-
 }

@@ -9,12 +9,14 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use App\Repositories\UserRepository;
 use App\Services\UserService;
+use App\Services\EmailValidatorService;
 
 $request = json_decode(file_get_contents("php://input"));
 $email = $request->email ?? null;
 $password = $request->password ?? null;
 $repo = new UserRepository($pdo);
-$service = new UserService($repo);
+$emailValidator = new EmailValidatorService();
+$service = new UserService($repo, $emailValidator);
 
 if (!$request || !isset($request->action) || $request->action !== 'connect') {
     echo json_encode(['success' => false, 'message' => 'Action invalide ou non spécifiée']);
