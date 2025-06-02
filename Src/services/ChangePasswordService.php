@@ -5,9 +5,11 @@ use App\Repositories\UserRepository;
 
 class ChangePasswordService {
     private $repo;
+    private $emailValidator;
 
-    public function __construct(UserRepository $repo) {
+    public function __construct(UserRepository $repo, EmailValidatorService $emailValidator) {
         $this->repo = $repo;
+        $this->emailValidator = $emailValidator;
     }
 
     public function changePassword(string $email, string $newPassword): array {
