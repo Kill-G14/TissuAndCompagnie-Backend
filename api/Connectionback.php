@@ -1,5 +1,6 @@
 <?php
 
+header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
@@ -20,12 +21,12 @@ use App\Services\SessionService;
 // Models
 // repositories 
 $userRepository = new UserRepository($pdo);
+$sessionRepository = new SessionRepository($pdo);
 // Validator
 $emailValidator = new EmailValidatorService();
 // services
 $userService = new UserService($userRepository, $emailValidator);
 $sessionService = new SessionService($userRepository, $sessionRepository);
-$sessionRepository = new SessionRepository($pdo);
 
 $request = json_decode(file_get_contents("php://input"));
 
