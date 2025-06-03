@@ -1,17 +1,11 @@
 <?php
 namespace App\Services;
 
-
-session_start();
+use APP\Models\Session;
+use APP\Repositories\SessionRepository;
 
 class LogoutService {
-    public function logout(): array {
-        session_unset();
-        session_destroy();
+    public function logout(): {
 
-        return [
-            "status" => "success",
-            "message" => "Déconnexion réussie"
-        ];
     }
 }

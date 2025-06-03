@@ -4,12 +4,12 @@ namespace App\Services;
 use App\Repositories\BasketRepository;
 
 class BasketService {
-    private $repo;
+    private $basketRepository;
 
-    public function __construct(BasketRepository $repo) {
-        $this->repo = $repo;
+    public function __construct(BasketRepository $basketRepository) {
+        $this->basketRepository = $basketRepository;
     }
     public function getBasketByUserId($userId) {
-        return $this->repo->getBasketByUserId($userId);
+        return $this->basketRepository->getBasketByUserId($userId);
     }
 }
