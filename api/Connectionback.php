@@ -10,6 +10,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // Models
 // repositories 
 use App\Repositories\UserRepository;
+use App\Repositories\SessionRepository;
 // Validator
 // services
 use App\Services\UserService;
@@ -23,7 +24,8 @@ $userRepository = new UserRepository($pdo);
 $emailValidator = new EmailValidatorService();
 // services
 $userService = new UserService($userRepository, $emailValidator);
-$sessionService = new SessionService($userRepository);
+$sessionService = new SessionService($userRepository, $sessionRepository);
+$sessionRepository = new SessionRepository($pdo);
 
 $request = json_decode(file_get_contents("php://input"));
 
