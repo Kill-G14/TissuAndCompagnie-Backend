@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+
 class EmailValidatorService {
     public function checkUserEmail(string $email): bool {
         $regex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+[.]+[a-zA-Z]{2,4}$/';

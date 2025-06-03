@@ -7,27 +7,38 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 require __DIR__ . '/../Src/db.php';
 require __DIR__ . '/../vendor/autoload.php';
 
+// Models
+// repositories 
 use App\Repositories\UserRepository;
+// Validator
+// services
 use App\Services\UserService;
 use App\Services\EmailValidatorService;
+use App\Services\SessionService;
+
+// Models
+// repositories 
+$userRepository = new UserRepository($pdo);
+// Validator
+$emailValidator = new EmailValidatorService();
+// services
+$userService = new UserService($userRepository, $emailValidator);
+$sessionService = new SessionService($userRepository);
 
 $request = json_decode(file_get_contents("php://input"));
-$email = $request->email ?? null;
-$password = $request->password ?? null;
-$repo = new UserRepository($pdo);
-$emailValidator = new EmailValidatorService();
-$service = new UserService($repo, $emailValidator);
 
-if (!$request || !isset($request->action) || $request->action !== 'connect') {
-    echo json_encode(['success' => false, 'message' => 'Action invalide ou non spécifiée']);
-    exit;
+switch ($request->action) {
+    case 'connect':
+        $email = $request->email ?? null;
+        $password = $request->password ?? null;
+        $result = $sessionService->loginUser($email, $password);
+        $response = ['success' => true, 'message' => 'Connection réussie', 'token' => $result]; 
+        break;
+
+    default:
+        $response =['success' => false, 'message' => 'Action non reconnue !'];
+        break;
 }
 
-if (!$email || !$password) {
-    echo json_encode(['success' => false, 'message' => 'Champs requis manquants.']);
-    exit;
-}
-
-$response = $service->loginUser($email, $password);
 echo json_encode($response);
 

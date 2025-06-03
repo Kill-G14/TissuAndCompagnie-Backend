@@ -3,27 +3,26 @@ namespace App\Services;
 use App\Repositories\ProductsRepository;
 use App\Models\ModelsDTO\DTOProduct;
 class ProductsService {
-    private $repo;
+    private $productsRepository;
 
-
-    public function __construct(ProductsRepository $repo) {
-        $this->repo = $repo;
+    public function __construct(ProductsRepository $productsRepository) {
+        $this->productsRepository = $productsRepository;
     }
 
     public function getPaginatedProducts(string $type, int $page, int $perPage = 28): array {
         $offset = ($page - 1) * $perPage;
-        $products = $this->repo->findProductsByType($type, $perPage, $offset);
+        $products = $this->productsRepository->findProductsByType($type, $perPage, $offset);
         $DTOproducts = [];
         foreach ($products as $product) {
             $productId = $product->id;
             $pictures = [];
             if ($productId !== null) {
-                $pictures = $this->repo->findImagesByProductId($productId);
+                $pictures = $this->productsRepository->findImagesByProductId($productId);
             }
             $DTOproducts[] = new DTOProduct($product, $pictures);
         }
 
-        $numberOFProducts = $this->repo->countProductsByType($type);
+        $numberOFProducts = $this->productsRepository->countProductsByType($type);
         $totalPages = ceil($numberOFProducts / $perPage);
 
         return [

@@ -5,16 +5,24 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 
 require __DIR__.'/../Src/db.php';
 require __DIR__.'/../vendor/autoload.php';
-
-use App\Services\UserService;
+// Models
+// repositories 
 use App\Repositories\UserRepository;
+// Validator
+// services
+use App\Services\UserService;
 use App\Services\EmailValidatorService;
 
 
-$request = json_decode(file_get_contents('php://input'));
-$repo = new UserRepository($pdo);
+// Models
+// repositories 
+$userRepository = new UserRepository($pdo);
+// Validator
 $emailValidator = new EmailValidatorService();
-$service = new UserService($repo, $emailValidator);
+// services
+$userService = new UserService($userRepository, $emailValidator);
+
+$request = json_decode(file_get_contents('php://input'));
 
 if ($request === null) {
     echo json_encode(['success' => false, 'message' => 'Aucune donnée reçue ou format invalide']);
@@ -23,7 +31,7 @@ if ($request === null) {
 
 switch ($request->action) {
     case 'registerNewUser':
-        $response = $service->registerUser($request);
+        $response = $userService->registerUser($request);
         echo json_encode($response);
         break;
 

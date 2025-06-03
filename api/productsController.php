@@ -6,13 +6,24 @@ header(header: "Access-Control-Allow-Headers: Content-Type");
 
 require __DIR__.'/../Src/db.php';
 require __DIR__.'/../vendor/autoload.php';
-use App\Services\ProductsService;
-use App\Repositories\ProductsRepository;
 
+// Models
+// repositories 
+use App\Repositories\ProductsRepository;
+// Validator
+// services
+use App\Services\ProductsService;
+
+
+// Models
+// repositories 
+$userRepository = new ProductsRepository($pdo);
+// Validator
+// services
+$productsService = new ProductsService($productsRepository);
 
 $request = json_decode(file_get_contents("php://input"));
-$repo = new ProductsRepository($pdo);
-$service = new ProductsService($repo);
+
 
 if (!isset($request->action)) {
     $data = [

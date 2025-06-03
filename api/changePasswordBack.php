@@ -5,30 +5,34 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 require __DIR__.'/../Src/db.php';
 require __DIR__.'/../vendor/autoload.php';
-
-use App\Services\ChangePasswordService;
+// Models
+// repositories 
 use App\Repositories\UserRepository;
+// Validator
+// services
+use App\Services\ChangePasswordService;
 use App\Services\EmailValidatorService;
 
+
+// Models
+// repositories 
+$userRepository = new UserRepository($pdo);
+// Validator
 $emailValidator = new EmailValidatorService();
-$repo = new UserRepository($pdo);
-$service = new ChangePasswordService($repo, $emailValidator);
-$email = $request["email"] ?? null;
-$newPassword = $request["newPassword"] ?? null;
-$response = $service->changePassword($email, $newPassword);
-$request = json_decode(file_get_contents("php://input"), true);
+// services
+$changePasswordService = new ChangePasswordService($userRepository, $emailValidator);
 
+$request = json_decode(file_get_contents("php://input"));
 
-if (!isset($request["action"]) || $request["action"] !== "changePassword") {
-    echo json_encode(["status" => "error", "message" => "Action invalide"]);
-    exit;
+switch ($request->action) {
+    case "changePassword":
+        $email = $request->email ?? null;
+        $newPassword = $request->newPassword ?? null;
+        $response = $changePasswordService->changePassword($email, $newPassword);
+        break;
+    default:
+        echo json_encode(["status" => "error", "message" => "Action invalide"]);
+        exit;
 }
-
-
-if (!$email || !$newPassword) {
-    echo json_encode(["status" => "error", "message" => "Champs manquants"]);
-    exit;
-}
-
 
 echo json_encode($response);

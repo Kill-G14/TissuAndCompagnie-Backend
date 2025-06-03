@@ -6,9 +6,22 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 require __DIR__ . '/../Src/db.php';
 require __DIR__ . '/../vendor/autoload.php';
-
+// Models
+// repositories 
 use App\Repositories\UserRepository;
+// Validator
+use App\Services\EmailValidatorService;
+// services
 use App\Services\UserService;
+
+
+// Models
+// repositories 
+$userRepository = new UserRepository($pdo);
+// Validator
+$emailValidator = new EmailValidatorService();
+// services
+$userService = new UserService($userRepository , $emailValidator);
 
 $request = json_decode(file_get_contents("php://input"));
 
@@ -17,11 +30,8 @@ if (!$request || !isset($request->action)) {
     exit;
 }
 
-$repo = new UserRepository($pdo);
-$service = new UserService($repo);
-
 if ($request->action === 'updateUserInfos') {
-    $response = $service->updateUserInfos($request);
+    $response = $userService->updateUserInfos($request);
     echo json_encode($response);
     exit;
 }
