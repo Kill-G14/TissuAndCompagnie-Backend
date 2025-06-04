@@ -1,11 +1,17 @@
 <?php
 namespace App\Services;
 
-use APP\Models\Session;
-use APP\Repositories\SessionRepository;
+use App\Repositories\SessionRepository;
+
 
 class LogoutService {
-    public function logout(): {
+    private $sessionRepository;
 
+    public function __construct( SessionRepository $sessionRepository) {
+        $this->sessionRepository = $sessionRepository;
+    }
+
+    public function deleteSessionByToken($token) {
+        return $this->sessionRepository->deleteSessionByToken($token);
     }
 }
