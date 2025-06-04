@@ -28,10 +28,11 @@ switch ($request->action) {
     case "changePassword":
         $email = $request->email ?? null;
         $newPassword = $request->newPassword ?? null;
-        $response = $changePasswordService->changePassword($email, $newPassword);
+        $result = $changePasswordService->changePassword($email, $newPassword);
+        $response = ["status" => "success", "message" , "Changement de mot de passe réussi" => $result];
         break;
     default:
-        echo json_encode(["status" => "error", "message" => "Action invalide"]);
+        $response = ["status" => "error", "message" => "Action non spécifiée."];
         exit;
 }
 

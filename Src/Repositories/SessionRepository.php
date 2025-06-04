@@ -1,7 +1,6 @@
 <?php 
 
 namespace App\Repositories;
-use App\Services\SessionService;
 
 class SessionRepository {
     private $pdo;
@@ -40,5 +39,4 @@ class SessionRepository {
         $stmt->bindParam(':token', $token);
         return $stmt->execute();   
     }
-
 }

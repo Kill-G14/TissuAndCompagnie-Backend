@@ -24,21 +24,16 @@ $userService = new UserService($userRepository, $emailValidator);
 
 $request = json_decode(file_get_contents('php://input'));
 
-if ($request === null) {
-    echo json_encode(['success' => false, 'message' => 'Aucune donnée reçue ou format invalide']);
-    exit;
-}
 
 switch ($request->action) {
     case 'registerNewUser':
-        $response = $userService->registerUser($request);
-        echo json_encode($response);
-        break;
-
-    case 'connect':
+        $result = $userService->registerUser($request);
+        $response = ['success' => true, 'message' => 'inscription réussie', 'result' => $result];
         break;
 
     default:
-        echo json_encode(['success' => false, 'message' => 'Action non reconnue !']);
+        $response = ['success' => false, 'message' => 'Champ non valide'];
         break;
 }
+
+echo json_encode($response);
