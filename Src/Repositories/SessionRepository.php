@@ -9,11 +9,11 @@ class SessionRepository {
         $this->pdo = $pdo;
     }
 
-    public function createSession(string $token, int $userId): bool {
-        $query = "INSERT INTO sessions (token, userId) VALUES (:token, :userId)";
+    public function createSession(string $token, int $idUser): bool {
+        $query = "INSERT INTO sessions (token, idUser) VALUES (:token, :idUser)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':token', $token);
-        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':idUser', $idUser);
         return $stmt->execute();
     }
 
@@ -25,13 +25,14 @@ class SessionRepository {
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function updateSession($token, $userId): bool {
-        $query = "UPDATE sessions SET userId = :userId WHERE token = :token";
+    public function updateSession($token, $idUser): bool {
+        $query = "UPDATE sessions SET idUser = :idUser WHERE token = :token";
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':idUser', $idUser);
         $stmt->bindParam(':token', $token);
         return $stmt->execute();
     }
+    
 
     public function deleteSessionByToken($token): bool {
         $query = "DELETE FROM sessions WHERE token = :token";
