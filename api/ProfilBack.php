@@ -25,16 +25,18 @@ $userService = new UserService($userRepository , $emailValidator);
 
 $request = json_decode(file_get_contents("php://input"));
 
-if (!$request || !isset($request->action)) {
-    echo json_encode(['success' => false, 'message' => 'Action non spécifiée.']);
-    exit;
+switch ($request->action) {
+    case "updateUserInfos":
+        $adresse = $request->adresse;
+        $adresseLivraison = $request->adresseLivraison;
+        $telephone = $request->telephone;
+        $email = $request->email;
+        $result = $userService->updateUserInfos($request);
+        $response = ['success' => true, 'message' => $result['message']];
+        break;   
+    default:
+        $response = ['success' => false, 'message' => 'Action non prise en charge.'];
+        break;
 }
 
-if ($request->action === 'updateUserInfos') {
-    $response = $userService->updateUserInfos($request);
-    echo json_encode($response);
-    exit;
-}
-
-echo json_encode(['success' => false, 'message' => 'Action inconnue.']);
-exit;
+echo json_encode($response);

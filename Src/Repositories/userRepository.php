@@ -15,7 +15,7 @@ class UserRepository {
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $user ?: null;
+        return $user ?: [];
     }
 
     public function createUser(string $name, string $email, string $password): bool {
