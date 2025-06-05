@@ -10,7 +10,7 @@ class UserRepository {
     }
 
     public function getUserByEmail(string $email): array {
-        $query = "SELECT * FROM users WHERE email = :email";
+        $query = "SELECT * FROM user WHERE email = :email";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -19,7 +19,7 @@ class UserRepository {
     }
 
     public function createUser(string $name, string $email, string $password): bool {
-        $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+        $query = "INSERT INTO user (name, email, password) VALUES (:name, :email, :password)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
@@ -28,7 +28,7 @@ class UserRepository {
     }
 
     public function updatePassword(string $email, string $hashedPassword): bool {
-        $query = "UPDATE users SET password = :password WHERE email = :email";
+        $query = "UPDATE user SET password = :password WHERE email = :email";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':email', $email);
@@ -36,7 +36,7 @@ class UserRepository {
     }
 
     public function updateUserInfos(string $email, string $adresse, string $adresseLivraison, string $telephone): bool {
-        $query = "UPDATE users SET adresse = :adresse, adresse_livraison = :adresseLivraison, telephone = :telephone WHERE email = :email";
+        $query = "UPDATE user SET adresse = :adresse, adresse_livraison = :adresseLivraison, telephone = :telephone WHERE email = :email";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':adresse', $adresse);
         $stmt->bindParam(':adresseLivraison', $adresseLivraison);
