@@ -8,24 +8,30 @@ require __DIR__ . '/../Src/db.php';
 require __DIR__ . '/../vendor/autoload.php';
 // Models
 // repositories 
-use App\Repositories\UserRepository;
+use App\Repositories\ProfilRepository;
 // Validator
-use App\Services\EmailValidatorService;
 // services
-use App\Services\UserService;
+use App\Services\ProfilService;
 
 
 // Models
 // repositories 
-$userRepository = new UserRepository($pdo);
+$profilRepository = new ProfilRepository($pdo);
 // Validator
-$emailValidator = new EmailValidatorService();
 // services
-$userService = new UserService($userRepository , $emailValidator);
+$profilService = new ProfilService($profilRepository);
 
 $request = json_decode(file_get_contents("php://input"));
 
 switch ($request->action) {
+    case "getUserInfos"
+        $email = $request->email;
+        $addresse = $request->adresse;
+        $addresseLivraison = $request->adresseLivraison;
+        $telephone = $request->telephone;
+        $result = $userService->getUser($request);
+        $response = ['success' => true, 'message' => $result['message']];
+        break;
     case "updateUserInfos":
         $adresse = $request->adresse;
         $adresseLivraison = $request->adresseLivraison;
