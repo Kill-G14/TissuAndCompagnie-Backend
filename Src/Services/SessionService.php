@@ -41,4 +41,8 @@ class SessionService {
 
         return $created ? $token : false;
     }
+
+    public function deleteSessionByToken(string $token): bool {
+        return $this->sessionRepository->deleteSessionByToken($token);
+    }
 }
