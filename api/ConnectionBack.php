@@ -37,6 +37,11 @@ switch ($request->action) {
         $response = ['success' => true, 'message' => 'Connection réussie', 'token' => $result]; 
         break;
 
+    case 'checkToken':
+        $result = $sessionService->getSessionByToken($request->token);
+        $response = ['success' => $result];
+        break;
+
     default:
         $response =['success' => false, 'message' => 'Action non reconnue !'];
         break;
