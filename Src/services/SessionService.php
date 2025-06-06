@@ -14,6 +14,19 @@ class SessionService {
         $this->sessionRepository = $sessionRepository;
     }
 
+    public function getSessionByToken(string $token): bool {
+        $session = $this->sessionRepository->getSessionByToken($token);
+        return $session ? true : false; 
+        // On retourne le resultat du if (?) qui si il est vide est false et si il est remplie est true
+        /*
+        if ($session) {
+            return true;
+        } else {
+            return false;
+        }
+         */
+    }
+
     public function loginUser(string $email, string $password): bool|string {
         $user = $this->userRepository->getUserByEmail($email);
 
