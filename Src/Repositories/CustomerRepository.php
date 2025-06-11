@@ -23,4 +23,20 @@ class CustomerRepository {
         $stmt->bindParam(':isDeleted', $customer->isDeleted);
         return $stmt->execute();
     }
+
+    public function getCustomer($idCustomer) {
+        $stmt = $this->pdo->prepare("SELECT * FROM customer WHERE id = :idCustomer");
+        $stmt->execute(['idCustomer' => $idCustomer]); 
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function updateCustomer($id, $email, $password, $firstName, $lastName, $phone, $isDeleted) {
+        $stmt = $this->pdo->prepare("UPDATE customer SET email = :email, password = :password, firstName = :firstName, lastName = :lastName, phone = :phone, isDeleted = :isDeleted WHERE id = :id");
+        $stmt->execute(['id' => $id, 'email' => $email, 'password' => $password, 'firstName' => $firstName, 'lastName' => $lastName, 'phone' => $phone, 'isDeleted' => $isDeleted]); 
+    }
+
+    public function deleteCustomer($id) {
+        $stmt = $this->pdo->prepare("UPDATE customer SET isDeleted = 1 WHERE id = :id");
+        $stmt->execute(['id' => $id]); 
+    }
 }
