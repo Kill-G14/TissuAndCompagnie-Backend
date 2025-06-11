@@ -24,13 +24,10 @@ $profilService = new ProfilService($profilRepository);
 $request = json_decode(file_get_contents("php://input"));
 
 switch ($request->action) {
-    case "getUserInfos"
+    case "getUserInfos":
         $email = $request->email;
-        $addresse = $request->adresse;
-        $addresseLivraison = $request->adresseLivraison;
-        $telephone = $request->telephone;
-        $result = $userService->getUser($request);
-        $response = ['success' => true, 'message' => $result['message']];
+        $result = $profilService->
+        $response = ['success' => true, 'data' => $result];
         break;
     case "updateUserInfos":
         $adresse = $request->adresse;
