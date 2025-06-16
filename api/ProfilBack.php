@@ -8,10 +8,12 @@ require __DIR__ . '/../vendor/autoload.php';
 // Models
 // repositories 
 use App\Repositories\ProfilRepository;
+use App\Repositories\UserRepository;
 // Validator
 // services
 use App\Services\ProfilService;
 use App\Services\DBConnexion;
+use App\Services\UserService;
 
 
 $DBConnexion = new DBConnexion();
@@ -25,6 +27,7 @@ $profilRepository = new ProfilRepository($pdo);
 // Validator
 // services
 $profilService = new ProfilService($profilRepository);
+$userService = new UserService($userRepository,$emailValidator);
 
 $request = json_decode(file_get_contents("php://input"));
 

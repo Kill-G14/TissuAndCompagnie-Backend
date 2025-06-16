@@ -44,4 +44,13 @@ class UserRepository {
         $stmt->bindParam(':email', $email);
         return $stmt->execute();
     }
+
+    public function getUserById(int $id): string|array {
+        $query = "SELECT * FROM user WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?:[];
+    }
 }

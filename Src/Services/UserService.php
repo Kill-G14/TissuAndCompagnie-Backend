@@ -3,10 +3,13 @@
 namespace App\Services;
 use App\Repositories\UserRepository;
 use App\Services\EmailValidatorService;
+use App\Repositories\SessionRepository;
 
 class UserService {
     private $userRepository;
     private $emailValidator;
+
+    private $sessionRepository;
 
     public function __construct(UserRepository $userRepository, EmailValidatorService $emailValidator) {
         $this->userRepository = $userRepository;
@@ -53,10 +56,11 @@ class UserService {
     }
 
     public function getUserByToken($token): array|bool {
-        $session = $this->SessionRepository->getSessionByToken($token);
+        $session = $this->sessionRepository->getSessionByToken($token);
         if (!$session) {
             return false;
         }
         return $this->userRepository->getUserById($session['user']);
     }
+}
   
