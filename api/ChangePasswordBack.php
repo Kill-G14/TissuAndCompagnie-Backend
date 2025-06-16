@@ -3,7 +3,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-require __DIR__.'/../Src/db.php';
 require __DIR__.'/../vendor/autoload.php';
 // Models
 // repositories 
@@ -12,7 +11,11 @@ use App\Repositories\UserRepository;
 // services
 use App\Services\ChangePasswordService;
 use App\Services\EmailValidatorService;
+use App\Services\DBConnexion;
 
+
+$DBConnexion = new DBConnexion();
+$pdo = $DBConnexion->getDB();
 
 // Models
 // repositories 

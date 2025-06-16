@@ -4,7 +4,6 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
-require __DIR__ . '/../Src/db.php';
 require __DIR__ . '/../vendor/autoload.php';
 // Models
 // repositories 
@@ -12,6 +11,12 @@ use App\Repositories\ProfilRepository;
 // Validator
 // services
 use App\Services\ProfilService;
+use App\Services\DBConnexion;
+
+
+$DBConnexion = new DBConnexion();
+$pdo = $DBConnexion->getDB();
+
 
 
 // Models

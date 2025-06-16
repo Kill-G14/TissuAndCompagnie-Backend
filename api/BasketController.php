@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../Src/db.php';
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Models
@@ -9,7 +9,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Repositories\BasketRepository;
 // Validator
 // services
+use App\Services\DBConnexion;
 
+
+$DBConnexion = new DBConnexion();
+$pdo = $DBConnexion->getDB();
 
 // Models
 // repositories 

@@ -2,9 +2,8 @@
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type");
 
-require __DIR__ . '/../Src/db.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 // Models
@@ -13,6 +12,13 @@ use App\Repositories\SessionRepository;
 // Validator
 // services
 use App\Services\SessionService;
+use App\Services\DBConnexion;
+
+
+$DBConnexion = new DBConnexion();
+$pdo = $DBConnexion->getDB();
+
+
 
 // Models
 // repositories 
