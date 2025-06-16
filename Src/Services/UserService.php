@@ -15,17 +15,17 @@ class UserService {
         $this->emailValidator = $emailValidator;
     }
 
-    public function registerUser($request) {
-        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+    public function registerUser($email, $name, $password): array {
+        if (!filter_var($email->email, FILTER_VALIDATE_EMAIL)) {
             return ['success' => false, 'message' => 'Email invalide !'];
         }
 
-        if ($this->userRepository->getUserByEmail($request->email)) {
+        if ($this->userRepository->getUserByEmail($email->email)) {
             return ['success' => false, 'message' => 'L\'email est déjà utilisé !'];
         }
 
-        $password = password_hash($request->password, PASSWORD_DEFAULT);
-        $result = $this->userRepository->createUser($request->userName, $request->email, $password);
+        $password = password_hash($password->password, PASSWORD_DEFAULT);
+        $result = $this->userRepository->createUser($name->Name, $email->email, $password);
 
         return $result
             ? ['success' => true, 'message' => 'Utilisateur créé avec succès !']

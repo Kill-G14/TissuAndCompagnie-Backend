@@ -32,13 +32,15 @@ $request = json_decode(file_get_contents('php://input'));
 
 switch ($request->action) {
     case 'registerNewUser':
-        $result = $userService->registerUser($request);
-        $response = ['success' => true, 'message' => 'inscription réussie', 'result' => $result];
+        $email = $request->email;
+        $name = $request->name;
+        $password = $request->password;
+        $result = $userService->registerUser($email,$name ,$password);
+        $response = $result;
         break;
-
     default:
-        $response = ['success' => false, 'message' => 'Champ non valide'];
-        break;
+        $response = ['Erreur' => false, 'message' => 'Action non trouvée !'];
+        exit;
 }
 
 echo json_encode($response);
