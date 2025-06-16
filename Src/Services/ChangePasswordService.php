@@ -2,13 +2,13 @@
 
 namespace App\Services;
 use App\Repositories\UserRepository;
-use App\Services\EmailValidatorService;
+use App\Services\EmailValidator;
 
 class ChangePasswordService {
     private $userRepository;
     private $emailValidator;
 
-    public function __construct(UserRepository $userRepository, EmailValidatorService $emailValidator) {
+    public function __construct(UserRepository $userRepository, EmailValidator $emailValidator) {
         $this->userRepository = $userRepository;
         $this->emailValidator = $emailValidator;
     }

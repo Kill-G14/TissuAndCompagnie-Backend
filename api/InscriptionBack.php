@@ -10,7 +10,7 @@ use App\Repositories\UserRepository;
 // Validator
 // services
 use App\Services\UserService;
-use App\Services\EmailValidatorService;
+use App\Services\EmailValidator;
 use App\Services\DBConnexion;
 
 
@@ -23,7 +23,7 @@ $pdo = $DBConnexion->getDB();
 // repositories 
 $userRepository = new UserRepository($pdo);
 // Validator
-$emailValidator = new EmailValidatorService();
+$emailValidator = new EmailValidator();
 // services
 $userService = new UserService($userRepository, $emailValidator);
 

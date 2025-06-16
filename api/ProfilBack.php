@@ -7,12 +7,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 require __DIR__ . '/../vendor/autoload.php';
 // Models
 // repositories 
-use App\Repositories\ProfilRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\ProfilRepository;
 // Validator
 // services
-use App\Services\ProfilService;
 use App\Services\DBConnexion;
+use App\Services\ProfilService;
 use App\Services\UserService;
 
 
@@ -23,16 +23,17 @@ $pdo = $DBConnexion->getDB();
 
 // Models
 // repositories 
+$userRepository = new UserRepository($pdo);
 $profilRepository = new ProfilRepository($pdo);
 // Validator
 // services
 $profilService = new ProfilService($profilRepository);
-$userService = new UserService($userRepository,$emailValidator);
+$userService = new UserService($userRepository, $emailValidator);
 
 $request = json_decode(file_get_contents("php://input"));
 
 switch ($request->action) {
-    case 'getUser':
+    case 'getUserInfos':
         $token = $request->token;
         $user = $userService->getUserByToken($token);
         if ($user) {
