@@ -51,4 +51,12 @@ class UserService {
             ? ['success' => true, 'message' => 'Coordonnées mises à jour.']
             : ['success' => false, 'message' => 'Échec de la mise à jour.'];
     }
-}
+
+    public function getUserByToken($token): array|bool {
+        $session = $this->SessionRepository->getSessionByToken($token);
+        if (!$session) {
+            return false;
+        }
+        return $this->userRepository->getUserById($session['user']);
+    }
+  

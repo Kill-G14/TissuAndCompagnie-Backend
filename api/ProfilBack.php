@@ -29,10 +29,14 @@ $profilService = new ProfilService($profilRepository);
 $request = json_decode(file_get_contents("php://input"));
 
 switch ($request->action) {
-    case "getUserInfos":
-        $email = $request->email;
-        $result = $profilService->
-        $response = ['success' => true, 'data' => $result];
+    case 'getUser':
+        $token = $request->token;
+        $user = $userService->getUserByToken($token);
+        if ($user) {
+            $response = ['success' => true, 'message' => 'Profil chargé', 'user' => $user];
+        } else {
+            $response = ['success' => false, 'message' => 'Profil non chargé'];
+        }
         break;
     case "updateUserInfos":
         $adresse = $request->adresse;
