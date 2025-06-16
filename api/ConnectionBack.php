@@ -36,17 +36,18 @@ $request = json_decode(file_get_contents("php://input"));
 
 switch ($request->action) {
     case 'connect':
-        $email = $request->email ?? null;
-        $password = $request->password ?? null;
+        $email = $request->email;
+        $password = $request->password;
         $result = $sessionService->loginUser($email, $password);
         $response = ['success' => true, 'message' => 'Connection réussie', 'token' => $result]; 
         break;
-
     case 'checkToken':
         $result = $sessionService->getSessionByToken($request->token);
         $response = ['success' => $result];
         break;
-
+    case 'disconnect':
+        $response = $sessionService->deleteSessionByToken($request->token);
+        break;
     default:
         $response =['success' => false, 'message' => 'Action non reconnue !'];
         break;
